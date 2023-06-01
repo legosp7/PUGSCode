@@ -10,6 +10,8 @@ userdict[legosp7.username] = legosp7
 
 TestTeam = Team("TestTeam")
 TestTeam.addmember(legosp7)
+TestTeam2 = Team("TestTeam2")
+teamdict[TestTeam2.teamname] = TestTeam2
 
 teamdict[TestTeam.teamname] = TestTeam
 
