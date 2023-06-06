@@ -29,10 +29,15 @@ class MainWindow(QMainWindow):
         grid_layout = QGridLayout(central_widget)
 
 
-        for column in range(2):
-            combo_box = QComboBox(self)
-            combo_box.addItems(teamdict)
-            grid_layout.addWidget(combo_box, 0, column * 9)
+        
+        team1_box = QComboBox(self)
+        team2_box = QComboBox(self)
+        team1_box.addItems(teamdict)
+        team2_box.addItems(teamdict)
+        grid_layout.addWidget(team1_box, 0, 0)
+        grid_layout.addWidget(team2_box, 0, 9)
+        team1_box.setInsertPolicy(QComboBox.InsertPolicy.NoInsert)
+        team2_box.setInsertPolicy(QComboBox.InsertPolicy.NoInsert)
             
         # Create two columns and six rows of cells
         for column in range(2):
@@ -44,6 +49,14 @@ class MainWindow(QMainWindow):
                 for i in range(8):
                     line_edit = QLineEdit(self)
                     grid_layout.addWidget(line_edit, row, column * 9 + i + 1)
+
+
+        # Connect signals to the methods.
+        team1_box.activated.connect(self.activated)
+        team1_box.currentTextChanged.connect(self.text_changed)
+        team1_box.currentIndexChanged.connect(self.index_changed)
+
+    
 
         # Create a submit button
         submit_button = QPushButton("Submit", self)
@@ -64,6 +77,15 @@ class MainWindow(QMainWindow):
         # Create a new window for switching
         switch_window = SwitchWindow()
         switch_window.show()
+    
+    def activated(Self, index):
+        print("Activated index:", index)
+
+    def text_changed(self, s):
+        print("Text changed:", s)
+
+    def index_changed(self, index):
+        print("Index changed", index)
 
 class SwitchWindow(QWidget):
     def __init__(self):
